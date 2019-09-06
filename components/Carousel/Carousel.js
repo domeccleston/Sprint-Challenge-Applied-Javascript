@@ -51,7 +51,7 @@ function Carousel() {
 
 
   // this doesn't work, apparently transitions don't workfor the display property, need to find a workaround
-  
+
 /*   imgArr.forEach((img) => {
     img.style.transition = "display 2s ease 2s"
     console.log(img.style);
@@ -65,7 +65,7 @@ function Carousel() {
 
   leftButton.addEventListener("click", () => {
     let absIndex = Math.abs(index);
-    index++;
+    index--;
     console.log(absIndex % 4);
     imgArr.forEach((img) => img.style.display = "none");
     imgArr[absIndex % 4].style.display = "flex";
