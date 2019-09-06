@@ -11,7 +11,10 @@
 const topicsData =
  axios.get('https://lambda-times-backend.herokuapp.com/topics')
     .then(response => {
-        response.data.topics.forEach((topic) => Tab(topic));
+        response.data.topics.forEach((topic) => {
+            if (topic === "node.js") {Tab(topic.substring(0, 4))}
+            else {Tab(topic)}
+        });
     })
 
     .catch(error => {
@@ -23,27 +26,18 @@ function Tab(data) {
     const tab = document.createElement('div');
     tab.classList.add('tab');
     tab.innerText = data;
-    tab.addEventListener("click", (event) => event.target.classList.toggle("active-tab") );
-    // tab should determine what content we see
-    const cards = document.querySelectorAll('.card');
-    tabs = document.querySelector('.tabs .topics')
-    tabs.appendChild(tab);
-
-}
-
-function renderContentbyTab() {
-
-    const activeTabs = Array.from(document.querySelectorAll('.active-tab'));
-    const activeTopics = activeTabs.map(tab => tab.innerHTML);
-    console.log(activeTopics)
+    topics = document.querySelector('.tabs .topics')
+    tabs = Array.from(document.querySelectorAll('.tab'))
+    tab.addEventListener("click", (event) =>{
+        tabs.forEach((tab) => tab.classList.remove('active-tab'));
+        event.target.classList.toggle('active-tab');
+        const cards = Array.from(document.querySelectorAll('.card'));
+        cards.forEach((card) => card.style.display = "none");
+        cards.forEach((card) => card.classList.contains(event.target.innerHTML) ? card.style.display = "block" : display = "none")
+    });
     const cards = Array.from(document.querySelectorAll('.card'));
     cards.forEach((card) => card.style.display = "none");
-    activeTopics.forEach((topic) => document.querySelector(`.${topic}`).classList.add('card-active'));
-    cards.forEach((card) => {
-        if (card.classList.contains('card-active')) {
-            card.style.display = "flex";
-        }
-    });
+
+    topics.appendChild(tab);
 }
 
-window.addEventListener("load", renderContentbyTab());

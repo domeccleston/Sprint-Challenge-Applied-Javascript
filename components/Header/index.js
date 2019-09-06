@@ -31,8 +31,6 @@ function Header() {
     header.appendChild(title);
     header.appendChild(tempSpan);
 
-    console.log(header)
-
     return header;
 }
 
